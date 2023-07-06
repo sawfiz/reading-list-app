@@ -17,21 +17,14 @@ export default function AddBookModal({ isOpen, closeModal }) {
   const { title, author, year, url, status } = formData;
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setFormData((prevData) => ({ ...prevData, [name]: newValue }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    console.log('Add button clicked');
     e.preventDefault();
 
     try {
-      const bookData = { title, author, year, status };
-      console.log(
-        '🚀 ~ file: AddBookModal.js:30 ~ handleSubmit ~ bookData:',
-        bookData
-      );
+      const bookData = { title, author, year, url, status };
       await addDoc(collection(db, 'books'), bookData);
       closeModal(); // Close the modal after successfully adding the book
     } catch (error) {
