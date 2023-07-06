@@ -1,25 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import Books from './components/Books';
 import './App.css';
+import Header from './components/Header';
+import BooksHeader from './components/BooksHeader';
+import BookListContextProvider from './contexts/BookListContext';
+import { Auth } from './components/auth';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Auth />
+      <BookListContextProvider>
+        <Header></Header>
+        <BooksHeader />
+        <Books />
+      </BookListContextProvider>
     </div>
   );
 }
-
-export default App;
