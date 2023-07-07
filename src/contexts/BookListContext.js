@@ -1,10 +1,14 @@
 import React, { createContext, useState } from 'react';
 import { db } from '../config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
 
 export const BookListContext = createContext();
 
 export default function BookListContextProvider(props) {
+  const {userId} = useContext(UserContext)
+
   const [bookList, setBookList] = useState([]);
   const [sortDirections, setSortDirections] = useState({
     title: true,
