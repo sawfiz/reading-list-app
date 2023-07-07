@@ -11,6 +11,7 @@ import { Auth } from './components/Auth';
 import Header from './components/Header';
 import Books from './components/Books';
 import BooksHeader from './components/BooksHeader';
+import Footer from './components/Footer';
 
 import './App.css';
 
@@ -26,12 +27,12 @@ export default function App() {
         // User is logged in
         setLoggedIn(true);
         setUserId(user.uid);
-        navigate('/books')
+        navigate('/books');
       } else {
         // User is logged out
         setLoggedIn(false);
         setUserId('');
-        navigate('/')
+        navigate('/');
       }
     });
     // Clean up the subscription on unmount
@@ -39,25 +40,33 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Routes>
-        <Route
-          path="/"
-          element={<Auth />}
-        />
-        <Route
-          path="/books"
-          element={
-            loggedIn && (
-              <BookListContextProvider>
-                <Header />
-                <BooksHeader />
-                <Books />
-              </BookListContextProvider>
-            ) 
-          }
-        />
-      </Routes>
+    <div>
+      <div className="app">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Auth />
+                {/* <Footer /> */}
+              </>
+            }
+          />
+          <Route
+            path="/books"
+            element={
+              loggedIn && (
+                <BookListContextProvider>
+                  <Header />
+                  <BooksHeader />
+                  <Books />
+                </BookListContextProvider>
+              )
+            }
+          />
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 }
