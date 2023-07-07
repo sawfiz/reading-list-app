@@ -18,15 +18,16 @@ export default function AddBookModal({ isOpen, closeModal }) {
     status: 'wantToRead',
   });
 
+  const [madeChange, setMadeChange] = useState(false);
+
   const { title, author, year, url, status } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setMadeChange(true);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const addBook = async () => {
     try {
       const bookData = { title, author, year, url, status };
       await addDoc(collection(db, 'users', userId, 'books'), bookData);
@@ -36,11 +37,23 @@ export default function AddBookModal({ isOpen, closeModal }) {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    addBook();
+  };
+
+  const handleModalClose = async () => {
+    if (madeChange) {
+      addBook();
+    }
+    closeModal();
+  };
+
   return (
     <Modal
       className="book-details-modal"
       isOpen={isOpen}
-      onRequestClose={closeModal}
+      onRequestClose={(e) => handleModalClose()}
     >
       <h2>New Book</h2>
       <form className="book-details-form" onSubmit={handleSubmit}>
@@ -51,7 +64,7 @@ export default function AddBookModal({ isOpen, closeModal }) {
               id="title"
               type="text"
               name="title"
-              className='book-details-input'
+              className="book-details-input"
               value={title}
               onChange={handleChange}
             />
@@ -64,7 +77,7 @@ export default function AddBookModal({ isOpen, closeModal }) {
               id="author"
               type="text"
               name="author"
-              className='book-details-input'
+              className="book-details-input"
               value={author}
               onChange={handleChange}
             />
@@ -77,7 +90,7 @@ export default function AddBookModal({ isOpen, closeModal }) {
               id="year"
               type="number"
               name="year"
-              className='book-details-input'
+              className="book-details-input"
               // value={year}
               onChange={handleChange}
             />
@@ -100,8 +113,8 @@ export default function AddBookModal({ isOpen, closeModal }) {
         <div>
           <label htmlFor="status">
             Read:
-            <select id="status" className='status-select'>
-            <option value="Want to read">Want to read</option>
+            <select id="status" className="status-select">
+              <option value="Want to read">Want to read</option>
               <option value="Not started">Not started</option>
               <option value="Reading">Reading</option>
               <option value="Read">Read</option>

@@ -8,7 +8,7 @@ import { BookListContext } from '../contexts/BookListContext';
 import { UserContext } from '../contexts/UserContext';
 
 export default function Books() {
-  const { userId} = useContext(UserContext);
+  const { userId } = useContext(UserContext);
   const { bookList, getBooks } = useContext(BookListContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function Books() {
   };
 
   const editNotes = (book) => {
-    console.log("Edit notes");
+    console.log('Edit notes');
     setBookToEdit(book);
     openNotesModal();
   };
@@ -32,19 +32,22 @@ export default function Books() {
     setBookToEdit({ ...bookToEdit, [e.target.name]: e.target.value });
   };
 
-  // Function to handle submitting the EditBookModal
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const updateBook = async () => {
     try {
       const bookDoc = doc(db, 'users', userId, 'books', bookToEdit.id);
       const bookData = { ...bookToEdit };
       await updateDoc(bookDoc, bookData);
-      closeModal(); // Close the modal after successfully adding the book
-      closeNotesModal();
+      // closeNotesModal();
     } catch (error) {
       console.error('Error editing book:', error);
     }
+  };
+  
+  // Function to handle submitting the EditBookModal
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    updateBook();
+    closeModal(); // Close the modal after successfully adding the book
   };
 
   const openModal = () => {
@@ -56,7 +59,7 @@ export default function Books() {
     getBooks();
   };
 
-  // 
+  //
   const openNotesModal = () => {
     setIsNotesModalOpen(true);
   };
@@ -74,7 +77,14 @@ export default function Books() {
   return (
     <div className="books-container">
       {bookList.map((book) => {
-        return <Book key={book.id} book={book} editBook={editBook} editNotes={editNotes}/>;
+        return (
+          <Book
+            key={book.id}
+            book={book}
+            editBook={editBook}
+            editNotes={editNotes}
+          />
+        );
       })}
       {/* Use conditional rendering to only render the EditBookModal component within Books 
       when the isOpen condition is satisfied */}
