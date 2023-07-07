@@ -2,9 +2,11 @@ import { useContext, useState } from 'react';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { BookListContext } from '../contexts/BookListContext';
+import { UserContext } from '../contexts/UserContext';
 import BookStatus from './BookStatus';
 
 export default function Book({ book, editBook, editNotes }) {
+  const {userId} = useContext(UserContext)
   const { getBooks } = useContext(BookListContext);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -18,13 +20,13 @@ export default function Book({ book, editBook, editNotes }) {
   };
 
   const handleChangeStatus = async (id, status) => {
-    const bookDoc = doc(db, 'books', id);
+    const bookDoc = doc(db, 'users', userId, 'books', id);
     await updateDoc(bookDoc, { status });
     getBooks();
   };
 
   const deleteBook = async (id) => {
-    const bookDoc = doc(db, 'books', id);
+    const bookDoc = doc(db, 'users', userId, 'books', id);
     await deleteDoc(bookDoc);
     getBooks();
   };
