@@ -9,6 +9,7 @@ import { UserContext } from '../contexts/UserContext';
 export default function Header() {
   const {setLoggedIn} = useContext(UserContext)
   const user = auth.currentUser
+  
   const handleSignOut = async () => {
     try {
       await signOut(auth);

@@ -1,18 +1,35 @@
 import React, { createContext, useState } from 'react';
+import { db } from '../config/firebase';
+import { auth } from '../config/firebase';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 export const UserContext = createContext();
 
 export default function UserContextProvider(props) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState('');
 
-  // const updateLoggedIn = (value) => {
-  //   setLoggedIn(value)
-  // }
+  const userCollection = collection(db, 'users');
+
+  const checkUser = async (id) => {
+    const user = await getDoc(doc(userCollection, id));
+    if (user.exists()) {
+      console.log(user.data());
+      return true;
+    } else {
+      console.log('No such document');
+      // use setDoc to specific an document ID
+      // use addDoc to let Firestore choose ID for you
+      const userName = auth.currentUser.displayName;
+      await setDoc(doc(userCollection, id), { userName });
+      console.log('User added');
+      return false;
+    }
+  };
 
   return (
-    <UserContext.Provider value={({loggedIn, setLoggedIn, userId, setUserId})}>
+    <UserContext.Provider value={{ loggedIn, setLoggedIn, userId, setUserId, checkUser }}>
       {props.children}
     </UserContext.Provider>
-  )
+  );
 }

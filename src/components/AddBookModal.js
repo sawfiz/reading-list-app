@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
 export default function AddBookModal({ isOpen, closeModal }) {
+  const { userId } = useContext(UserContext);
+
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -25,7 +29,7 @@ export default function AddBookModal({ isOpen, closeModal }) {
 
     try {
       const bookData = { title, author, year, url, status };
-      await addDoc(collection(db, 'books'), bookData);
+      await addDoc(collection(db, 'users', userId, 'books'), bookData);
       closeModal(); // Close the modal after successfully adding the book
     } catch (error) {
       console.error('Error adding book:', error);

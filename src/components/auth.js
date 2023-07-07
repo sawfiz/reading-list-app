@@ -12,8 +12,8 @@ export const Auth = () => {
     e.preventDefault();
     try {
       await signInWithPopup(auth, googleProvider);
-      console.log(auth?.currentUser?.email);
       setLoggedIn(true);
+      setUserId(auth.currentUser.uid)
     } catch (err) {
       console.log('Error');
     }
