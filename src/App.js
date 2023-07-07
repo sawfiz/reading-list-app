@@ -43,7 +43,7 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={!loggedIn && <Auth />}
+          element={<Auth />}
         />
         <Route
           path="/books"
