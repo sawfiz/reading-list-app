@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { db } from '../config/firebase';
 import { auth } from '../config/firebase';
+
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 export const UserContext = createContext();
@@ -27,6 +28,7 @@ export default function UserContextProvider(props) {
       return false;
     }
   };
+
 
   return (
     <UserContext.Provider value={{ loggedIn, setLoggedIn, userId, setUserId, checkUser }}>

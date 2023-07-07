@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore , connectFirestoreEmulator } from "firebase/firestore"
-import { getAuth, GoogleAuthProvider } from "firebase/auth"
+import { getAuth, GoogleAuthProvider, setPersistence, browserSessionPersistence } from "firebase/auth"
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,6 +29,15 @@ export const db = getFirestore(app)
 
 // Code for authentication using Google accounts
 export const auth = getAuth(app);
+// setPersistence(auth, browserSessionPersistence)
+//   .then(() => {
+//     // Session persistence successfully set
+//     console.log("Session persistence successfully set");
+//   })
+//   .catch((error) => {
+//     // Handle the error if session persistence could not be set
+//     console.log("Handle the error if session persistence could not be set");
+//   });
 
 export const googleProvider = new GoogleAuthProvider();
 
