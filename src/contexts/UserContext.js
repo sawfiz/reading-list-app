@@ -15,7 +15,6 @@ export default function UserContextProvider(props) {
   const checkUser = async (id) => {
     const user = await getDoc(doc(userCollection, id));
     if (user.exists()) {
-      console.log(user.data());
       return true;
     } else {
       console.log('No such document');
@@ -24,7 +23,6 @@ export default function UserContextProvider(props) {
       const name = auth.currentUser.displayName;
       const email = auth.currentUser.email;
       await setDoc(doc(userCollection, id), { name, email });
-      console.log('User added');
       return false;
     }
   };

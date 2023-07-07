@@ -1,17 +1,22 @@
-import React, {useEffect} from 'react';
-import Books from './components/Books';
-import './App.css';
-import Header from './components/Header';
-import BooksHeader from './components/BooksHeader';
-import BookListContextProvider from './contexts/BookListContext';
+import React, { useContext, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Auth } from './components/auth';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
 import { auth } from './config/firebase';
-import { useContext } from 'react';
+
+import BookListContextProvider from './contexts/BookListContext';
 import { UserContext } from './contexts/UserContext';
 
+import { Auth } from './components/Auth';
+import Header from './components/Header';
+import Books from './components/Books';
+import BooksHeader from './components/BooksHeader';
+
+import './App.css';
+
 export default function App() {
-  const {loggedIn, setLoggedIn, setUserId } = useContext(UserContext)
+  const { loggedIn, setLoggedIn, setUserId } = useContext(UserContext);
+  const navigate = useNavigate();
 
   // Keep user logged in after a page refresh
   useEffect(() => {
@@ -21,10 +26,12 @@ export default function App() {
         // User is logged in
         setLoggedIn(true);
         setUserId(user.uid);
-      } else { 
+        navigate('/books')
+      } else {
         // User is logged out
         setLoggedIn(false);
         setUserId('');
+        navigate('/')
       }
     });
     // Clean up the subscription on unmount
@@ -33,14 +40,24 @@ export default function App() {
 
   return (
     <div className="app">
-      {!loggedIn && <Auth/>}
-      {loggedIn && (
-          <BookListContextProvider>
-            <Header></Header>
-            <BooksHeader />
-            <Books />
-          </BookListContextProvider>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={!loggedIn && <Auth />}
+        />
+        <Route
+          path="/books"
+          element={
+            loggedIn && (
+              <BookListContextProvider>
+                <Header />
+                <BooksHeader />
+                <Books />
+              </BookListContextProvider>
+            ) 
+          }
+        />
+      </Routes>
     </div>
   );
 }
