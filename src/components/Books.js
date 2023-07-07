@@ -5,8 +5,10 @@ import Book from './Book';
 import EditBookModal from './EditBookModal';
 import BookNotesModal from './BookNotesModal';
 import { BookListContext } from '../contexts/BookListContext';
+import { UserContext } from '../contexts/UserContext';
 
 export default function Books() {
+  const { userId} = useContext(UserContext);
   const { bookList, getBooks } = useContext(BookListContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +37,7 @@ export default function Books() {
     e.preventDefault();
 
     try {
-      const bookDoc = doc(db, 'books', bookToEdit.id);
+      const bookDoc = doc(db, 'users', userId, 'books', bookToEdit.id);
       const bookData = { ...bookToEdit };
       await updateDoc(bookDoc, bookData);
       closeModal(); // Close the modal after successfully adding the book

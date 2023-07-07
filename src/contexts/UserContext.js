@@ -20,8 +20,9 @@ export default function UserContextProvider(props) {
       console.log('No such document');
       // use setDoc to specific an document ID
       // use addDoc to let Firestore choose ID for you
-      const userName = auth.currentUser.displayName;
-      await setDoc(doc(userCollection, id), { userName });
+      const name = auth.currentUser.displayName;
+      const email = auth.currentUser.email;
+      await setDoc(doc(userCollection, id), { name, email });
       console.log('User added');
       return false;
     }

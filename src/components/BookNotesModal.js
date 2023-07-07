@@ -55,7 +55,7 @@ export default function BookNotesModal({
         </div>
         <div>
           <label className="block-label" htmlFor="notes">
-            What led me to this book
+            My notes on this book
           </label>
           <textarea
             name="notes"
