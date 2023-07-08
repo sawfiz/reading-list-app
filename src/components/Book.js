@@ -4,9 +4,12 @@ import { db } from '../config/firebase';
 import { BookListContext } from '../contexts/BookListContext';
 import { UserContext } from '../contexts/UserContext';
 import BookStatus from './BookStatus';
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
-export default function Book({ book, editBook, editNotes }) {
-  const {userId} = useContext(UserContext)
+export default function Book({ book, editNotes }) {
+  const { editBook } = useContext(BookDetailsContext);
+
+  const { userId } = useContext(UserContext);
   const { getBooks } = useContext(BookListContext);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -45,7 +48,7 @@ export default function Book({ book, editBook, editNotes }) {
         </a>
       </div>
       <div>{book.author}</div>
-      <div className='year'>{book.year}</div>
+      <div className="year">{book.year}</div>
       <BookStatus
         book={book}
         handleChangeStatus={handleChangeStatus}

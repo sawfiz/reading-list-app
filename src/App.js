@@ -6,6 +6,7 @@ import { auth } from './config/firebase';
 
 import BookListContextProvider from './contexts/BookListContext';
 import { UserContext } from './contexts/UserContext';
+import BookDetailsContextProvider from './contexts/BookDetailsContext';
 
 import { Auth } from './components/Auth';
 import Header from './components/Header';
@@ -49,9 +50,11 @@ export default function App() {
             element={
               loggedIn && (
                 <BookListContextProvider>
-                  <Header />
-                  <BooksHeader />
-                  <Books />
+                  <BookDetailsContextProvider>
+                    <Header />
+                    <BooksHeader />
+                    <Books />
+                  </BookDetailsContextProvider>
                 </BookListContextProvider>
               )
             }

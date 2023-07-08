@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-modal';
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
-export default function EditBookModal({
-  isOpen,
-  closeModal,
-  bookToEdit,
-  handleChange,
-  handleSubmit,
-}) {
+export default function EditBookModal() {
+  const { isModalOpen, closeModal, bookToEdit, handleChange, handleSubmit } =
+    useContext(BookDetailsContext);
 
   return (
     <Modal
       className="book-details-modal"
-      isOpen={isOpen}
+      isOpen={isModalOpen}
       onRequestClose={closeModal}
     >
       <h2>Edit Book</h2>

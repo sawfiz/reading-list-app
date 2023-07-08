@@ -5,12 +5,13 @@ import styled from 'styled-components';
 export default function Footer() {
   const S = {};
   S.Footer = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100vw;
     color: white;
     background-color: #333;
     font-size: 0.8rem;
+    height: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;

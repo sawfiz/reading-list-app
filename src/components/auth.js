@@ -25,6 +25,7 @@ export const Auth = () => {
 
   const S = {};
   S.LoginPage = styled.div`
+    height: calc(100vh - 1rem);
     background: #fcf8e8;
     height: 100vh;
     display: flex;
@@ -34,13 +35,27 @@ export const Auth = () => {
   `;
 
   S.Title = styled.h1`
-    font-size: 4rem;
+    /* background: #b0bfad; */
+    padding: 0 1.5rem;
+    text-decoration: underline;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     color: #39232b;
     text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.4);
   `;
 
+  S.SignInImg = styled.img`
+    width: 191px;
+    height: 46px;
+  `;
+
+  S.SplashImgContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
+
   S.SplashImg = styled.img`
-    width: 70%;
+    width: clamp(300px, 70%, 600px);
   `;
 
   S.PhotoCredit = styled.p`
@@ -54,20 +69,17 @@ export const Auth = () => {
     cursor: pointer;
   `;
 
-  S.SignInImg = styled.img`
-    width: 191px;
-    height: 46px;
-  `;
-
   return (
     <div>
       <S.LoginPage>
         <S.Title>My Reading List</S.Title>
-        <S.SplashImg src={booksImg} alt="WebP Image" />
-        <S.PhotoCredit>incomible/Getty Images/iStockphoto</S.PhotoCredit>
         <S.Button onClick={(e) => signinWithGoogle(e)}>
           <S.SignInImg src={googleSignInImg} />
         </S.Button>
+        <S.SplashImgContainer>
+          <S.SplashImg src={booksImg} alt="WebP Image" />
+          <S.PhotoCredit>incomible/Getty Images/iStockphoto</S.PhotoCredit>
+        </S.SplashImgContainer>
       </S.LoginPage>
     </div>
   );

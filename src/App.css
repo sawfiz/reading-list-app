@@ -9,14 +9,15 @@
 
 body {
   background: #94b49f;
+  height: 100vh;
 }
 
 .app {
   background: #fcf8e8;
-  width: clamp(460px, 100%, 800px);
+  width: clamp(375px, 100%, 800px);
   margin: auto;
   position: relative;
-  min-height: 100vh;
+  height: calc(100vh - 1rem);
 }
 
 header {
@@ -47,6 +48,7 @@ h1 {
   font-family: 'Architects Daughter';
   text-align: center;
   padding-top: 1.5rem;
+  font-size: clamp(1.3rem, 3vw, 3rem);
 }
 
 .google {
@@ -72,12 +74,13 @@ h1 {
   gap: 1rem;
   justify-content: center;
   align-items: center;
+  width: clamp(350px, 50%, 450px) ;
 }
 
 .book-details-form {
+  width: 100%;
   background: #fcf8ea;
   display: flex;
-  width: 450px;
   padding: 1rem 1rem 1rem 1rem;
   flex-direction: column;
 }
@@ -87,7 +90,7 @@ h1 {
 .book-details-input {
   position: absolute;
   left: 7rem;
-  width: 320px;
+  width: clamp(200px, calc(100% - 9rem), 320px);
   outline: none;
 }
 .url-text-container {
@@ -97,7 +100,7 @@ h1 {
 .url-text {
   position: absolute;
   left: 7rem;
-  width: 320px;
+  width: clamp(200px, calc(100% - 9rem), 320px);
   resize: none;
   outline: none;
   margin-bottom: 3rem;
@@ -115,7 +118,7 @@ h1 {
 
 .books-container {
   background: #fcf8e8;
-  width: 80%;
+  width: 95%;
   margin: auto;
   margin-top: 0.3rem;
   display: flex;
@@ -130,7 +133,7 @@ h1 {
 }
 
 .books-header {
-  width: 80%;
+  width: 95%;
   margin: auto;
   font-family: sans-serif;
   background: #ecb390;

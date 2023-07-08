@@ -1,73 +1,32 @@
 import { useState, useEffect, useContext } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../config/firebase';
+
 import Book from './Book';
 import EditBookModal from './EditBookModal';
 import BookNotesModal from './BookNotesModal';
 import { BookListContext } from '../contexts/BookListContext';
-import { UserContext } from '../contexts/UserContext';
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 export default function Books() {
-  const { userId } = useContext(UserContext);
   const { bookList, getBooks } = useContext(BookListContext);
+  const { isModalOpen} = useContext(BookDetailsContext);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
-  const [bookToEdit, setBookToEdit] = useState(null);
+  // const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
 
-  // Set booToEdit when a book's edit button is clicked
-  const editBook = (book) => {
-    setBookToEdit(book);
-    openModal();
-  };
-
-  const editNotes = (book) => {
-    console.log('Edit notes');
-    setBookToEdit(book);
-    openNotesModal();
-  };
-
-  // Function to handle changes in the EditBookModal
-  const handleChange = (e) => {
-    setBookToEdit({ ...bookToEdit, [e.target.name]: e.target.value });
-  };
-
-  const updateBook = async () => {
-    try {
-      const bookDoc = doc(db, 'users', userId, 'books', bookToEdit.id);
-      const bookData = { ...bookToEdit };
-      await updateDoc(bookDoc, bookData);
-      // closeNotesModal();
-    } catch (error) {
-      console.error('Error editing book:', error);
-    }
-  };
-  
-  // Function to handle submitting the EditBookModal
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    updateBook();
-    closeModal(); // Close the modal after successfully adding the book
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    getBooks();
-  };
+  // const editNotes = (book) => {
+  //   console.log('Edit notes');
+  //   setBookToEdit(book);
+  //   openNotesModal();
+  // };
 
   //
-  const openNotesModal = () => {
-    setIsNotesModalOpen(true);
-  };
+  // const openNotesModal = () => {
+  //   setIsNotesModalOpen(true);
+  // };
 
-  const closeNotesModal = () => {
-    setIsNotesModalOpen(false);
-    getBooks();
-  };
+  // const closeNotesModal = () => {
+  //   setIsNotesModalOpen(false);
+  //   getBooks();
+  // };
 
   // Initial randeringx
   useEffect(() => {
@@ -81,23 +40,14 @@ export default function Books() {
           <Book
             key={book.id}
             book={book}
-            editBook={editBook}
-            editNotes={editNotes}
+            // editNotes={editNotes}
           />
         );
       })}
       {/* Use conditional rendering to only render the EditBookModal component within Books 
       when the isOpen condition is satisfied */}
-      {isModalOpen && (
-        <EditBookModal
-          isOpen={isModalOpen}
-          closeModal={closeModal}
-          bookToEdit={bookToEdit}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      )}
-      {isNotesModalOpen && (
+      {isModalOpen && <EditBookModal />}
+      {/* {isNotesModalOpen && (
         <BookNotesModal
           isOpen={isNotesModalOpen}
           closeModal={closeNotesModal}
@@ -105,7 +55,7 @@ export default function Books() {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
         />
-      )}
+      )} */}
     </div>
   );
 }
