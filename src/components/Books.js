@@ -8,7 +8,7 @@ import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 export default function Books() {
   const { bookList, getBooks } = useContext(BookListContext);
-  const { isModalOpen} = useContext(BookDetailsContext);
+  const { isEditModalOpen} = useContext(BookDetailsContext);
 
   // const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
 
@@ -46,7 +46,7 @@ export default function Books() {
       })}
       {/* Use conditional rendering to only render the EditBookModal component within Books 
       when the isOpen condition is satisfied */}
-      {isModalOpen && <EditBookModal />}
+      {isEditModalOpen && <EditBookModal />}
       {/* {isNotesModalOpen && (
         <BookNotesModal
           isOpen={isNotesModalOpen}

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../config/firebase';
 import { useContext } from 'react';
-import { UserContext } from '../contexts/UserContext';
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
-export default function AddBookModal({ isOpen, closeModal }) {
-  const { userId } = useContext(UserContext);
+export default function AddBookModal() {
+  const { isAddModalOpen, addBook, closeAddModal } =
+    useContext(BookDetailsContext);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -27,32 +26,22 @@ export default function AddBookModal({ isOpen, closeModal }) {
     setMadeChange(true);
   };
 
-  const addBook = async () => {
-    try {
-      const bookData = { title, author, year, url, status };
-      await addDoc(collection(db, 'users', userId, 'books'), bookData);
-      closeModal(); // Close the modal after successfully adding the book
-    } catch (error) {
-      console.error('Error adding book:', error);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addBook();
+    addBook(formData);
   };
 
   const handleModalClose = async () => {
     if (madeChange) {
-      addBook();
+      addBook(formData);
     }
-    closeModal();
+    closeAddModal();
   };
 
   return (
     <Modal
       className="book-details-modal"
-      isOpen={isOpen}
+      isOpen={isAddModalOpen}
       onRequestClose={(e) => handleModalClose()}
     >
       <h2>New Book</h2>
@@ -113,7 +102,13 @@ export default function AddBookModal({ isOpen, closeModal }) {
         <div>
           <label htmlFor="status">
             Read:
-            <select id="status" className="status-select">
+            <select
+              id="status"
+              name='status'
+              className="status-select"
+              value={status}
+              onChange={handleChange}
+            >
               <option value="Want to read">Want to read</option>
               <option value="Not started">Not started</option>
               <option value="Reading">Reading</option>

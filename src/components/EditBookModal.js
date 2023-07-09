@@ -5,14 +5,21 @@ import { BookDetailsContext } from '../contexts/BookDetailsContext';
 Modal.setAppElement('#root'); // Set the root element for the modal
 
 export default function EditBookModal() {
-  const { isModalOpen, closeModal, bookToEdit, handleChange, handleSubmit } =
+  const { isEditModalOpen, closeEditModal, bookToEdit, handleChange, updateBook } =
     useContext(BookDetailsContext);
+
+  // Function to handle submitting the EditBookModal
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateBook();
+    closeEditModal(); // Close the modal after successfully adding the book
+  };
 
   return (
     <Modal
       className="book-details-modal"
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
+      isOpen={isEditModalOpen}
+      onRequestClose={closeEditModal}
     >
       <h2>Edit Book</h2>
       <form className="book-details-form" onSubmit={handleSubmit}>

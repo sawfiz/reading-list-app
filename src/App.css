@@ -42,6 +42,7 @@ header {
 
 .addBookButton {
   border: none;
+  cursor: pointer;
 }
 
 h1 {

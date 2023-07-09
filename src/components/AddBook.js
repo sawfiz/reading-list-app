@@ -1,26 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import AddBookModal from './AddBookModal';
-import { BookListContext } from '../contexts/BookListContext';
 import addButtonImg from "../images/icons8-add-96.png"
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 
 export default function AddBook() {
-  const {getBooks} = useContext(BookListContext)
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    getBooks();
-  };
+  const {isAddModalOpen, openAddModal} = useContext(BookDetailsContext)
+  console.log("🚀 ~ file: AddBook.js:12 ~ AddBook ~ isModalOpen:", isAddModalOpen)
   
   return (
     <div>
-      <button className="addBookButton" onClick={openModal}> <img className="addBookImg" src={addButtonImg} alt="" /></button>
-      {isModalOpen && <AddBookModal isOpen={isModalOpen} closeModal={closeModal}/>}
+      <button className="addBookButton" onClick={openAddModal}> <img className="addBookImg" src={addButtonImg} alt="" /></button>
+      {isAddModalOpen && <AddBookModal />}
       </div>
   )
 }

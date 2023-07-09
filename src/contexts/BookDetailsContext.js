@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
 import { UserContext } from '../contexts/UserContext';
@@ -12,12 +12,22 @@ export default function BookDetailsContextProvider(props) {
   const { getBooks } = useContext(BookListContext);
 
   const [bookToEdit, setBookToEdit] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Set booToEdit when a book's edit button is clicked
   const editBook = (book) => {
     setBookToEdit(book);
-    openModal();
+    openEditModal();
+  };
+
+  const addBook = async (bookData) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'books'), bookData);
+      closeAddModal(); // Close the modal after successfully adding the book
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
   };
 
   const updateBook = async () => {
@@ -36,26 +46,41 @@ export default function BookDetailsContextProvider(props) {
     setBookToEdit({ ...bookToEdit, [e.target.name]: e.target.value });
   };
 
-  // Function to handle submitting the EditBookModal
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    updateBook();
-    closeModal(); // Close the modal after successfully adding the book
+  const openAddModal = () => {
+    console.log('Open Add Modal');
+    setIsAddModalOpen(true);
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+    getBooks();
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const openEditModal = () => {
+    console.log('Open Modal');
+    setIsEditModalOpen(true);
+  };
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
     getBooks();
   };
 
   return (
     <BookDetailsContext.Provider
-      value={{isModalOpen, closeModal, bookToEdit, handleChange, handleSubmit, setBookToEdit, editBook}}
+      value={{
+        isAddModalOpen,
+        openAddModal,
+        closeAddModal,
+        addBook,
+        isEditModalOpen,
+        openEditModal,
+        closeEditModal,
+        updateBook,
+        bookToEdit,
+        setBookToEdit,
+        handleChange,
+        editBook,
+      }}
     >
       {props.children}
     </BookDetailsContext.Provider>
