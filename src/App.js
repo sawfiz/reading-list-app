@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { auth } from './config/firebase';
 
@@ -40,9 +41,18 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
+  const S = {};
+  S.App = styled.div`
+    background: var(--color-light);
+    width: clamp(375px, 100%, 800px);
+    margin: auto;
+    position: relative;
+    height: calc(100vh - 1rem);
+  `;
+
   return (
-    <div>
-      <div className="app">
+    <>
+      <S.App>
         <Routes>
           <Route path="/" element={<Auth />} />
           <Route
@@ -60,8 +70,8 @@ export default function App() {
             }
           />
         </Routes>
-      </div>
+      </S.App>
       <Footer />
-    </div>
+    </>
   );
 }

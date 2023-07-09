@@ -17,6 +17,15 @@ export default function AddBook() {
 
   S.Button = styled.button`
     border: none;
+    background: none;
+    cursor: pointer;
+  `;
+
+  S.Img = styled.img`
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
   `;
 
   return (
@@ -28,7 +37,7 @@ export default function AddBook() {
         data-tooltip-place="right"
         onClick={openAddModal}
       >
-        <img className="addBookImg" src={addButtonImg} alt="" />
+        <S.Img className="addBookImg" src={addButtonImg} alt="" />
       </S.Button>
       {isAddModalOpen && <AddBookModal />}
       <ReactTooltip

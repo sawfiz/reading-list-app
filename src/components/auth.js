@@ -35,7 +35,7 @@ export const Auth = () => {
   `;
 
   S.Title = styled.h1`
-    /* background: #b0bfad; */
+    font-family: 'Architects Daughter';
     padding: 0 1.5rem;
     text-decoration: underline;
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -70,17 +70,15 @@ export const Auth = () => {
   `;
 
   return (
-    <div>
-      <S.LoginPage>
-        <S.Title>My Reading List</S.Title>
-        <S.Button onClick={(e) => signinWithGoogle(e)}>
-          <S.SignInImg src={googleSignInImg} />
-        </S.Button>
-        <S.SplashImgContainer>
-          <S.SplashImg src={booksImg} alt="WebP Image" />
-          <S.PhotoCredit>incomible/Getty Images/iStockphoto</S.PhotoCredit>
-        </S.SplashImgContainer>
-      </S.LoginPage>
-    </div>
+    <S.LoginPage>
+      <S.Title>My Reading List</S.Title>
+      <S.Button onClick={(e) => signinWithGoogle(e)}>
+        <S.SignInImg src={googleSignInImg} />
+      </S.Button>
+      <S.SplashImgContainer>
+        <S.SplashImg src={booksImg} alt="WebP Image" />
+        <S.PhotoCredit>incomible/Getty Images/iStockphoto</S.PhotoCredit>
+      </S.SplashImgContainer>
+    </S.LoginPage>
   );
 };

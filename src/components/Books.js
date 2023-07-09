@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
+import styled from 'styled-components';
 
 import Book from './Book';
 import EditBookModal from './EditBookModal';
@@ -15,20 +16,30 @@ export default function Books() {
     getBooks();
   }, []);
 
+  const S = {};
+  S.BoosContainer = styled.div`
+    background: var(--color-light);
+    width: 95%;
+    margin: auto;
+    margin-top: 0.3rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  `;
+
   return (
-    <div className="books-container">
+    <S.BoosContainer>
       {bookList.map((book) => {
         return (
           <Book
             key={book.id}
             book={book}
-            // editNotes={editNotes}
           />
         );
       })}
       {/* Conditional rendering of the modals */}
       {isEditModalOpen && <EditBookModal />}
       {isNotesModalOpen && <BookNotesModal />}
-    </div>
+    </S.BoosContainer>
   );
 }
