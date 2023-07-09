@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal';
+
 import { useContext } from 'react';
 import { BookDetailsContext } from '../contexts/BookDetailsContext';
+
+import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
@@ -9,6 +11,7 @@ export default function AddBookModal() {
   const { isAddModalOpen, addBook, closeAddModal } =
     useContext(BookDetailsContext);
 
+  // Input fields in the form
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -16,11 +19,12 @@ export default function AddBookModal() {
     url: '',
     status: 'wantToRead',
   });
-
-  const [madeChange, setMadeChange] = useState(false);
-
   const { title, author, year, url, status } = formData;
 
+  // State for if there's been change to the form
+  const [madeChange, setMadeChange] = useState(false);
+
+ // Function to handle changes in the form
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setMadeChange(true);
@@ -29,8 +33,10 @@ export default function AddBookModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     addBook(formData);
+    closeAddModal();
   };
 
+  // Save user changes even if the modal is dismissed
   const handleModalClose = async () => {
     if (madeChange) {
       addBook(formData);
@@ -104,7 +110,7 @@ export default function AddBookModal() {
             Read:
             <select
               id="status"
-              name='status'
+              name="status"
               className="status-select"
               value={status}
               onChange={handleChange}

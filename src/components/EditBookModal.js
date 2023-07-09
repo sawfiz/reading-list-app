@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import Modal from 'react-modal';
+
 import { BookDetailsContext } from '../contexts/BookDetailsContext';
+
+import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
@@ -12,7 +14,7 @@ export default function EditBookModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateBook();
-    closeEditModal(); // Close the modal after successfully adding the book
+    closeEditModal();
   };
 
   return (

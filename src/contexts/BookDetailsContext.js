@@ -11,43 +11,12 @@ export default function BookDetailsContextProvider(props) {
   const { userId } = useContext(UserContext);
   const { getBooks } = useContext(BookListContext);
 
-  const [bookToEdit, setBookToEdit] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState(null);
 
-  // Set booToEdit when a book's edit button is clicked
-  const editBook = (book) => {
-    setBookToEdit(book);
-    openEditModal();
-  };
-
-  const addBook = async (bookData) => {
-    try {
-      await addDoc(collection(db, 'users', userId, 'books'), bookData);
-      closeAddModal(); // Close the modal after successfully adding the book
-    } catch (error) {
-      console.error('Error adding book:', error);
-    }
-  };
-
-  const updateBook = async () => {
-    try {
-      const bookDoc = doc(db, 'users', userId, 'books', bookToEdit.id);
-      const bookData = { ...bookToEdit };
-      await updateDoc(bookDoc, bookData);
-      // closeNotesModal();
-    } catch (error) {
-      console.error('Error editing book:', error);
-    }
-  };
-
-  // Function to handle changes in the EditBookModal
-  const handleChange = (e) => {
-    setBookToEdit({ ...bookToEdit, [e.target.name]: e.target.value });
-  };
-
+  // Function to open/close the AddBookModal
   const openAddModal = () => {
-    console.log('Open Add Modal');
     setIsAddModalOpen(true);
   };
 
@@ -56,13 +25,42 @@ export default function BookDetailsContextProvider(props) {
     getBooks();
   };
 
+  const addBook = async (bookData) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'books'), bookData);
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
+  };
+
+  // Function to open/close the EditBookModal
   const openEditModal = () => {
-    console.log('Open Modal');
     setIsEditModalOpen(true);
   };
   const closeEditModal = () => {
     setIsEditModalOpen(false);
     getBooks();
+  };
+
+  // Set bookToEdit when a book's edit button is clicked
+  const editBook = (book) => {
+    setBookToEdit(book);
+    openEditModal();
+  };
+
+  // Function to handle changes in the EditBookModal
+  const handleChange = (e) => {
+    setBookToEdit({ ...bookToEdit, [e.target.name]: e.target.value });
+  };
+
+  const updateBook = async () => {
+    try {
+      const bookDoc = doc(db, 'users', userId, 'books', bookToEdit.id);
+      const bookData = { ...bookToEdit };
+      await updateDoc(bookDoc, bookData);
+    } catch (error) {
+      console.error('Error editing book:', error);
+    }
   };
 
   return (
