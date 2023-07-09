@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
@@ -11,10 +13,16 @@ export default function AddBook() {
 
   return (
     <div>
-      <button className="addBookButton" onClick={openAddModal}>
+      <button
+        data-tooltip-id="addBookBtn"
+        data-tooltip-content="Add a new book"
+        data-tooltip-place="right"
+        onClick={openAddModal}
+      >
         <img className="addBookImg" src={addButtonImg} alt="" />
       </button>
       {isAddModalOpen && <AddBookModal />}
+      <ReactTooltip id="addBookBtn" />
     </div>
   );
 }
