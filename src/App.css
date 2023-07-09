@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Architects+Daughter');
 
+:root {
+  --color-background: #94b49f;
+  --color-dark: #cee5d0;
+  --color-light: #fcf8e8;
+  --color-highlight: honeydew;
+  --color-list-header: #ecb390;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,12 +16,12 @@
 }
 
 body {
-  background: #94b49f;
+  background: var(--color-background);
   height: 100vh;
 }
 
 .app {
-  background: #fcf8e8;
+  background: var(--color-light);
   width: clamp(375px, 100%, 800px);
   margin: auto;
   position: relative;
@@ -43,7 +51,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #9ab3a0;
+  background: var(--color-background);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -55,7 +63,7 @@ body {
 
 .book-details-form {
   width: 100%;
-  background: #fcf8ea;
+  background: var(--color-light);
   display: flex;
   padding: 1rem 1rem 1rem 1rem;
   flex-direction: column;
@@ -93,7 +101,7 @@ body {
 }
 
 .books-container {
-  background: #fcf8e8;
+  background: var(--color-light);
   width: 95%;
   margin: auto;
   margin-top: 0.3rem;
@@ -112,7 +120,7 @@ body {
   width: 95%;
   margin: auto;
   font-family: sans-serif;
-  background: #ecb390;
+  background: var(--color-list-header);
   font-size: 1.1rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
   text-align: left;
@@ -129,7 +137,7 @@ body {
   background-color: #cee5d0;
 }
 .book:hover {
-  background-color: honeydew;
+  background-color: var(--color-highlight);
 }
 .left {
   text-align: left;
