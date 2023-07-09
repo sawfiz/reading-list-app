@@ -30,8 +30,12 @@ export default function Header() {
     font-family: 'Architects Daughter';
     text-align: center;
     padding-top: 1.5rem;
-    font-size: clamp(1.3rem, 3vw, 3rem);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 3rem;
+
+    @media screen and (max-width: 800px) {
+      font-size: clamp(1.3rem, 6vw, 3rem);
+    }
   `;
 
   S.Navbar = styled.div`
