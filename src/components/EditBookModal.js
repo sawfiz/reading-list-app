@@ -4,6 +4,8 @@ import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 import Modal from 'react-modal';
 
+import styles from './BookDetails.module.css';
+
 Modal.setAppElement('#root'); // Set the root element for the modal
 
 export default function EditBookModal() {
@@ -19,49 +21,49 @@ export default function EditBookModal() {
 
   return (
     <Modal
-      className="book-details-modal"
+    className={styles.modal}
       isOpen={isEditModalOpen}
       onRequestClose={closeEditModal}
     >
       <h2>Edit Book</h2>
-      <form className="book-details-form" onSubmit={handleSubmit}>
-        <div className="input-container">
+      <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.inputContainer}>
           <label htmlFor="title">
             Title:
             <input
               name="title"
               type="text"
-              className="book-details-input"
+              className={styles.input}
               value={bookToEdit.title}
               onChange={handleChange}
             />
           </label>
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <label htmlFor="author">
             Author:
             <input
               name="author"
               type="text"
-              className="book-details-input"
+              className={styles.input}
               value={bookToEdit.author}
               onChange={handleChange}
             />
           </label>
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <label htmlFor="year">
             Year:
             <input
               name="year"
               type="number"
-              className="book-details-input"
+              className={styles.input}
               value={bookToEdit.year}
               onChange={handleChange}
             />
           </label>
         </div>
-        <div className="url-text-container">
+        <div className={styles.urlTextContainer}>
           <label htmlFor="url">
             Link:
             <textarea
@@ -69,7 +71,7 @@ export default function EditBookModal() {
               type="text"
               name="url"
               rows="3"
-              className="url-text"
+              className={styles.urlText}
               value={bookToEdit.url}
               onChange={handleChange}
             />
@@ -81,7 +83,7 @@ export default function EditBookModal() {
             <select
               id="status"
               name="status"
-              className="status-select"
+              className={styles.select}
               value={bookToEdit.status}
               onChange={handleChange}
             >
@@ -93,8 +95,8 @@ export default function EditBookModal() {
             </select>
           </label>
         </div>
-        <div className="submit-button-container">
-          <button className="submit-button" type="submit">
+        <div className={styles.btnContainer}>
+            <button className={styles.submitBtn} type="submit">
             Update
           </button>
         </div>

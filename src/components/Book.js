@@ -62,7 +62,7 @@ export default function Book({ book }) {
     font-size: 0.9rem;
     display: flex;
     align-items: center;
-    text-align: right;
+    justify-content: center;
   `;
 
   S.Button = styled.button`

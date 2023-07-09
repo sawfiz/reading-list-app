@@ -29,10 +29,10 @@ export default function BooksHeader() {
         Author
         <button onClick={() => getBooks('author', toggleSort)}>↕️</button>
       </div>
-      <div>
+      <div style={{textAlign: 'center'}}>
         Year <button onClick={() => getBooks('year', toggleSort)}>↕️</button>
       </div>
-      <div>
+      <div style={{textAlign: 'center'}}>
         Status
         <button onClick={() => getBooks('status', toggleSort)}>↕️</button>
       </div>

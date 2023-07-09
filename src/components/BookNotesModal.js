@@ -4,6 +4,8 @@ import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 import Modal from 'react-modal';
 
+import styles from './BookNotes.module.css'
+
 Modal.setAppElement('#root'); // Set the root element for the modal
 
 export default function BookNotesModal() {
@@ -18,33 +20,33 @@ export default function BookNotesModal() {
 
   return (
     <Modal
-      className="book-notes-modal"
+      className={styles.modal}
       isOpen={isNotesModalOpen}
       onRequestClose={closeNotesModal}
     >
       <h2>Book Notes</h2>
-      <form className="book-notes-form" onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div>
-          <label className="block-label" htmlFor="lead">
+          <label className={styles.label} htmlFor="lead">
             What led me to this book{' '}
           </label>
           <textarea
             name="lead"
             rows="3"
             cols="60"
-            className="notes-textarea"
+            className={styles.textarea}
             value={bookToEdit.lead}
             onChange={handleChange}
           ></textarea>
         </div>
-        <div className="notes-dates">
+        <div className={styles.dates}>
           <label htmlFor="startDate" className="block-label">
             Start
           </label>
           <input
             name="startDate"
             type="date"
-            className="date-input"
+            className={styles.input}
             value={bookToEdit.startDate}
             onChange={handleChange}
           ></input>
@@ -54,26 +56,26 @@ export default function BookNotesModal() {
           <input
             name="finishDate"
             type="date"
-            className="date-input"
+            className={styles.input}
             value={bookToEdit.finishDate}
             onChange={handleChange}
           ></input>
         </div>
         <div>
-          <label className="block-label" htmlFor="notes">
+          <label className={styles.label} htmlFor="notes">
             My notes on this book
           </label>
           <textarea
             name="notes"
             rows="10"
             cols="60"
-            className="notes-textarea"
+            className={styles.textarea}
             value={bookToEdit.notes}
             onChange={handleChange}
           ></textarea>
         </div>
-        <div className="submit-button-container">
-          <button className="submit-button" type="submit">
+        <div className={styles.btnContainer}>
+          <button className={styles.submitBtn} type="submit">
             Save
           </button>
         </div>

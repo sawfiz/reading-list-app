@@ -7,6 +7,7 @@ export default function BookStatus({ book, handleChangeStatus }) {
     background: #0000;
     border: none;
     outline: none;
+    text-align: center;
   `;
 
   return (
