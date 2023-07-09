@@ -8,25 +8,7 @@ import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
 export default function Books() {
   const { bookList, getBooks } = useContext(BookListContext);
-  const { isEditModalOpen} = useContext(BookDetailsContext);
-
-  // const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
-
-  // const editNotes = (book) => {
-  //   console.log('Edit notes');
-  //   setBookToEdit(book);
-  //   openNotesModal();
-  // };
-
-  //
-  // const openNotesModal = () => {
-  //   setIsNotesModalOpen(true);
-  // };
-
-  // const closeNotesModal = () => {
-  //   setIsNotesModalOpen(false);
-  //   getBooks();
-  // };
+  const { isEditModalOpen, isNotesModalOpen } = useContext(BookDetailsContext);
 
   // Initial randeringx
   useEffect(() => {
@@ -44,18 +26,9 @@ export default function Books() {
           />
         );
       })}
-      {/* Use conditional rendering to only render the EditBookModal component within Books 
-      when the isOpen condition is satisfied */}
+      {/* Conditional rendering of the modals */}
       {isEditModalOpen && <EditBookModal />}
-      {/* {isNotesModalOpen && (
-        <BookNotesModal
-          isOpen={isNotesModalOpen}
-          closeModal={closeNotesModal}
-          bookToEdit={bookToEdit}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      )} */}
+      {isNotesModalOpen && <BookNotesModal />}
     </div>
   );
 }

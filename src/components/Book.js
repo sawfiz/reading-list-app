@@ -6,8 +6,8 @@ import { UserContext } from '../contexts/UserContext';
 import BookStatus from './BookStatus';
 import { BookDetailsContext } from '../contexts/BookDetailsContext';
 
-export default function Book({ book, editNotes }) {
-  const { editBook } = useContext(BookDetailsContext);
+export default function Book({ book }) {
+  const { editBook, editNotes } = useContext(BookDetailsContext);
 
   const { userId } = useContext(UserContext);
   const { getBooks } = useContext(BookListContext);

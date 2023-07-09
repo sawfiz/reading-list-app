@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { BookDetailsContext } from '../contexts/BookDetailsContext';
+
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
-export default function BookNotesModal({
-  isOpen,
-  closeModal,
-  bookToEdit,
-  handleChange,
-  handleSubmit,
-}) {
+export default function BookNotesModal() {
+  const { isNotesModalOpen, closeNotesModal, bookToEdit, handleChange, updateBook } =
+    useContext(BookDetailsContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    updateBook();
+    closeNotesModal();
+  };
+
   return (
     <Modal
       className="book-notes-modal"
-      isOpen={isOpen}
-      onRequestClose={closeModal}
+      isOpen={isNotesModalOpen}
+      onRequestClose={closeNotesModal}
     >
       <h2>Book Notes</h2>
       <form className="book-notes-form" onSubmit={handleSubmit}>

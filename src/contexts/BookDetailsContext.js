@@ -13,6 +13,8 @@ export default function BookDetailsContextProvider(props) {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
+
   const [bookToEdit, setBookToEdit] = useState(null);
 
   // Function to open/close the AddBookModal
@@ -63,6 +65,23 @@ export default function BookDetailsContextProvider(props) {
     }
   };
 
+
+ // Function to open/close the bookNotesModal 
+  const openNotesModal = () => {
+    setIsNotesModalOpen(true);
+  };
+
+  const closeNotesModal = () => {
+    setIsNotesModalOpen(false);
+    getBooks();
+  };
+
+  const editNotes = (book) => {
+    console.log('Edit notes');
+    setBookToEdit(book);
+    openNotesModal();
+  };
+
   return (
     <BookDetailsContext.Provider
       value={{
@@ -78,6 +97,10 @@ export default function BookDetailsContextProvider(props) {
         setBookToEdit,
         handleChange,
         editBook,
+        isNotesModalOpen,
+        openNotesModal,
+        closeNotesModal,
+        editNotes,
       }}
     >
       {props.children}
